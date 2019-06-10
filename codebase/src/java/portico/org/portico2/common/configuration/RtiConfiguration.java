@@ -44,6 +44,8 @@ public class RtiConfiguration
 	protected RtiConfiguration()
 	{
 		this.rtiConnections = new HashMap<>();
+		
+		rtiConnections.put( "default", ConnectionConfiguration.defaultRtiConfiguration() );
 	}
 
 	//----------------------------------------------------------
@@ -60,6 +62,14 @@ public class RtiConfiguration
 	
 	public void addConnection( ConnectionConfiguration configuration )
 	{
+		// remove the default if someone has supplied a non-null alternative
+		if( configuration != null &&
+			rtiConnections.size() == 1 &&
+			rtiConnections.containsKey("default") )
+		{
+			rtiConnections.clear();
+		}
+		
 		String name = configuration.getName();
 		if( rtiConnections.containsKey(name) )
 			throw new IllegalArgumentException( "RTI already contains connection with name "+name );
@@ -118,7 +128,7 @@ public class RtiConfiguration
 			// create the configuration
 			ConnectionConfiguration configuration = new ConnectionConfiguration( name );
 			configuration.parseConfiguration( rid, connectionElement );
-			this.rtiConnections.put( name, configuration );
+			this.addConnection( configuration );
 		}
 	}
 	

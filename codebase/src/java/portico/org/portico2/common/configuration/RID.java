@@ -102,7 +102,11 @@ public class RID
 			override( commandline );
 		
 		// store the location of teh RID file for later read-only reference
-		this.ridpath = ridfile.getPath();
+		if( ridfile == null )
+			this.ridpath = "./RTI.rid";
+		else
+			this.ridpath = ridfile.getPath();
+
 		// FIXME what about rtihome and rtidata???
 		this.commandline = commandline;
 	}
@@ -235,10 +239,10 @@ public class RID
 	
 	private void override( Properties properties ) throws JConfigurationException
 	{
-		for( String propertyName : properties.stringPropertyNames() )
+		for( String keyName : properties.stringPropertyNames() )
 		{
-			Argument argument = Argument.getArgumentForProperty( propertyName );
-			override( argument, properties.getProperty(propertyName) );
+			Argument argument = Argument.getArgument( keyName );
+			override( argument, properties.getProperty(keyName) );
 		}
 	}
 	

@@ -17,6 +17,7 @@ package org.portico2.common.network.configuration;
 import org.portico.lrc.compat.JConfigurationException;
 import org.portico2.common.configuration.RID;
 import org.portico2.common.network.configuration.protocol.ProtocolStackConfiguration;
+import org.portico2.common.network.configuration.transport.MulticastConfiguration;
 import org.portico2.common.network.configuration.transport.TransportConfiguration;
 import org.portico2.common.network.protocol.Protocol;
 import org.portico2.common.network.transport.Transport;
@@ -51,6 +52,8 @@ public class ConnectionConfiguration
 	{
 		this.name = name;
 		this.enabled = true;
+		this.transportConfiguration = null;
+		this.protocolStackConfiguration = new ProtocolStackConfiguration();
 	}
 
 	//----------------------------------------------------------
@@ -147,4 +150,23 @@ public class ConnectionConfiguration
 	//----------------------------------------------------------
 	//                     STATIC METHODS
 	//----------------------------------------------------------
+	
+	////////////////////////////////////////////////////////////////////////////////////////
+	///  Connection Defaults  //////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////
+	public static ConnectionConfiguration defaultRtiConfiguration()
+	{
+		ConnectionConfiguration temp = new ConnectionConfiguration( "default" );
+		temp.setTransportConfiguration( new MulticastConfiguration(temp) );
+		return temp;
+	}
+	
+	public static ConnectionConfiguration defaultLrcConfiguration()
+	{
+		ConnectionConfiguration temp = new ConnectionConfiguration( "default" );
+		temp.setTransportConfiguration( new MulticastConfiguration(temp) );
+		return temp;
+	}
+	
+
 }

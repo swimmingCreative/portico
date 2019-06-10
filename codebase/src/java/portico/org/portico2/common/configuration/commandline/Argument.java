@@ -22,30 +22,26 @@ public enum Argument
 	//                        VALUES
 	//----------------------------------------------------------
 	// General Configuration
-	Help       ( "help",        "",          "",         "Show this help" ),
-	GUI        ( "gui",         "",          "",         "Show the Server Control GUI (off by default)" ),
-	RidFile    ( "rid",         "rid.file",  "[file]",   "Path to RTI Initialization File (default: ./RTI.rid)"),
-	RtiHome    ( "rtihome",     "rit.home",  "[file]",   "Path to RTI_HOME diretory (default: ./" ),
+	Help       ( "help",        "",         "Show this help" ),
+	GUI        ( "gui",         "",         "Show the Server Control GUI (off by default)" ),
+	RidFile    ( "rid",         "[file]",   "Path to RTI Initialization File (default: ./RTI.rid)"),
+	RtiHome    ( "rti-home",    "[file]",   "Path to RTI_HOME diretory (default: ./" ),
 	
 	// Logging Configuration
-	LogLevel   ( "log-level",   "log.level", "[string]", "Threshold for logging. OFF for none. (default: INFO)" ),
-	LogFile    ( "log-dir",     "log.dir",   "[dir]",    "The directory to put log files in" );
+	LogLevel   ( "log-level",   "[string]", "Threshold for logging. OFF for none. (default: INFO)" ),
+	LogFile    ( "log-dir",     "[dir]",    "The directory to put log files in" );
 
 	//----------------------------------------------------------
 	//                   INSTANCE VARIABLES
 	//----------------------------------------------------------
 	private String name;             // token to look for
-	private String propertyName;     // name of the equivalent property when loading from properties
 	private String typeDescription;  // description of expected arguments
 	private String textDescription;  // documentation on purpose of the setting
 
 	//----------------------------------------------------------
 	//                      CONSTRUCTORS
 	//----------------------------------------------------------
-	private Argument( String name,
-	                  String property,
-	                  String typeDesc,
-	                  String textDesc )
+	private Argument( String name, String typeDesc, String textDesc )
 	{
 		this.name = name;
 		this.typeDescription = typeDesc;
@@ -110,28 +106,6 @@ public enum Argument
 		throw new JConfigurationException( "Unknown argument: --"+argument );
 	}
 
-	/**
-	 * Get the argument that is represented by the specified property. Each argument may
-	 * have an associated property name, and that is what we look up against.
-	 * 
-	 * @param propertyName The property to get the related argument for
-	 * @return The argument related to property
-	 */
-	public static Argument getArgumentForProperty( String propertyName )
-		throws JConfigurationException
-	{
-		if( propertyName == null || propertyName.trim().equals("") )
-			return null;
-		
-		for( Argument potential : Argument.values() )
-		{
-			if( propertyName.equalsIgnoreCase(potential.propertyName) )
-				return potential;
-		}
-		
-		throw new JConfigurationException( "Unknown argument (property): "+propertyName );
-	}
-	
 	/**
 	 * Returns a formatted string that can be printed to the command line outlining the various
 	 * arguments available and their use.

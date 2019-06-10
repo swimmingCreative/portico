@@ -55,7 +55,7 @@ public class Tester
 		
 		// Define the properties we want to override
 		Properties overrides = new Properties();
-		overrides.put( "portico.loglevel", "TRACE" );
+		overrides.put( "--log-level", "TRACE" );
 //		overrides.put( "rti.network.connections", "jvm" );
 //		overrides.put( "rti.network.jvm.type", "jvm" );
 //		overrides.put( "lrc.network.connection", "jvm" );

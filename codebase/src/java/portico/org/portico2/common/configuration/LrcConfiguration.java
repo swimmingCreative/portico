@@ -49,7 +49,7 @@ public class LrcConfiguration
 		this.queueWarningCountSize = 500;
 		
 		// defaults
-		this.connectionConfiguration = new ConnectionConfiguration( "lrc" );
+		this.connectionConfiguration = ConnectionConfiguration.defaultLrcConfiguration();
 	}
 
 	//----------------------------------------------------------
