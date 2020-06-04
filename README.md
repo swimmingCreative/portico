@@ -1,4 +1,4 @@
-Welcome to Portico
+- Welcome to Portico -
 ===================
 Portico is an open source [HLA Run-Time Infrastructure](https://en.wikipedia.org/wiki/High-level_architecture)
 (RTI) implementation. It is designed to ensure open and free access to the necessary infrastructure
